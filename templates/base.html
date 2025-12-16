@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quotes</title>
+</head>
+<body>
+    <nav>
+        {% if user.is_authenticated %}
+            Hello {{ user.username }} |
+            <a href="{% url 'logout' %}">Logout</a> |
+            <a href="{% url 'add_author' %}">Add author</a> |
+            <a href="{% url 'add_quote' %}">Add quote</a>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a> |
+            <a href="{% url 'register' %}">Register</a>
+        {% endif %}
+    </nav>
+
+    <hr>
+
+    <h3>Top Ten Tags</h3>
+    {% for tag in top_tags %}
+        <a href="{% url 'tag' tag.name %}">{{ tag.name }}</a>
+    {% endfor %}
+
+    <hr>
+
+    {% block content %}{% endblock %}
+</body>
+</html>
