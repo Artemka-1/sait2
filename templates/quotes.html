@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for quote in quotes %}
+    <p>{{ quote.quote }}</p>
+    <p>
+        <a href="{% url 'author' quote.author.id %}">
+            {{ quote.author.fullname }}
+        </a>
+    </p>
+
+    <p>
+        {% for tag in quote.tags.all %}
+            <a href="{% url 'tag' tag.name %}">{{ tag.name }}</a>
+        {% endfor %}
+    </p>
+    <hr>
+{% endfor %}
+
+{% if quotes.has_previous %}
+    <a href="?page={{ quotes.previous_page_number }}">Previous</a>
+{% endif %}
+
+{% if quotes.has_next %}
+    <a href="?page={{ quotes.next_page_number }}">Next</a>
+{% endif %}
+{% endblock %}
